@@ -12,9 +12,26 @@ class SettingAccountController {
     }
     async getSettingAccount(req, res, next) {
         try {
-            const id = req.params.id;
-            const data = await SettingAccountService.getSettingAccount(id);
+            const data = await SettingAccountService.getSettingAccount();
              res.json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+    async creatSettingAccount(req, res, next) {
+        try {
+            const { dataSettingAccount} = req.body;
+            const data = await SettingAccountService.creatSettingAccount( dataSettingAccount);
+            res.json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+    async deleteSettingAccount(req, res, next) {
+        try {
+            const id = req.params.id;
+            const data = await SettingAccountService.deleteSettingAccount(id);
+            res.json(data);
         } catch (error) {
             next(error);
         }
@@ -23,8 +40,18 @@ class SettingAccountController {
         try {
             const id = req.params.id;
             const { dataSettingAccount} = req.body;
+
             const data = await SettingAccountService.updateSettingAccount(id, dataSettingAccount);
              res.json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+    async updateChooseAccount(req, res, next) {
+        try {
+            const id = req.params.id;
+            const data = await SettingAccountService.updateChooseAccount(id);
+            res.json(data);
         } catch (error) {
             next(error);
         }

@@ -8,6 +8,10 @@ const Settlement = sequelizeExtranet.define('Settlement', {
         primaryKey: true,
         autoIncrement: true,
     },
+    idBooking: {
+        type: DataTypes.JSON,
+        allowNull: false,
+    },
     idObject: {
         type: DataTypes.STRING,
         allowNull: false,

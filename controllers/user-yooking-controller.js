@@ -10,6 +10,36 @@ class UserYookingController {
             next(error);
         }
     }
+    async getUserYooking(req, res, next) {
+        try {
+            const userId = req.params.userId
+            if (!userId) {
+                return new ApiError.BadRequest("Некорректные данные")
+            }
+            const data = await UserYookingService.getUserYooking(userId)
+            // Удаляем ненужные параметры из объекта data
+            delete data.dataValues.password;
+            delete data.dataValues.codeConfirmForPhone;
+            res.json(data)
+        } catch (error) {
+            next(error);
+        }
+    }
+    async getUserIdYookingCorp(req, res, next) {
+        try {
+            const userId = req.params.userId
+            if (!userId) {
+                return new ApiError.BadRequest("Некорректные данные")
+            }
+            const data = await UserYookingService.getUserIdYookingCorp(userId)
+            // Удаляем ненужные параметры из объекта data
+            delete data.dataValues.password;
+            delete data.dataValues.codeConfirmForPhone;
+            res.json(data)
+        } catch (error) {
+            next(error);
+        }
+    }
     async updateUserYooking(req, res, next) {
         try {
             const userId = req.params.userId

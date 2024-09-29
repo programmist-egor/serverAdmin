@@ -16,13 +16,10 @@ const TokenModel = sequelizeExtranet.define('TokenModel', {
     refreshToken: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            len: [1, 1000] // Ограничение от 1 до 255 символов
-        }
     },
 
 });
 
-TokenModel.belongsTo(User, { foreignKey: 'userId' });
+TokenModel.belongsTo(User, { foreignKey: 'id' });
 
 export default TokenModel;

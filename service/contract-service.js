@@ -18,6 +18,7 @@ class ContractService {
         const result = await ContractExtranet.destroy({where: {userId: userId}});
         return result
     }
+
 }
 
 export default new ContractService()

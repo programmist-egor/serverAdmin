@@ -12,11 +12,14 @@ import PhotosNumberController from "../controllers/photos-number-controller.js";
 import ContractController from "../controllers/contract-controller.js";
 import SettingAccountController from "../controllers/setting-account-controller.js";
 import ChatSupportController from "../controllers/chat-support-controller.js";
+import DocumentConfirmController from "../controllers/document-confirm-controller.js";
 const Router = RouterExp.Router
 const managementRoute = new Router()
 
 //USERS YOOKING
 managementRoute.get("/user/yooking", authMiddleware, UserYookingController.getAllUsersYooking)
+managementRoute.get("/user/get_by_id/:userId", authMiddleware, UserYookingController.getUserYooking)
+managementRoute.get("/user/get/corp/:userId", authMiddleware, UserYookingController.getUserIdYookingCorp)
 managementRoute.put("/user/yooking/:userId", authMiddleware, UserYookingController.updateUserYooking)
 managementRoute.delete("/user/yooking/:userId", authMiddleware, UserYookingController.deleteUserYooking)
 //USERS EXTRANET
@@ -27,6 +30,8 @@ managementRoute.delete("/user/extranet/:userId", authMiddleware, UserExtranetCon
 //OBJECT
 managementRoute.get("/objects", authMiddleware, ObjectController.getAllObject)
 managementRoute.get("/object/:hotelId", authMiddleware, ObjectController.getObject)
+managementRoute.get("/object/user_data/:hotelId", authMiddleware, ObjectController.getDataUserObject)
+managementRoute.get("/objects/byUserId/:userId", authMiddleware, ObjectController.getObjectByUserId)
 managementRoute.put("/object/:hotelId", authMiddleware, ObjectController.updateObject)
 managementRoute.delete("/object/:hotelId", authMiddleware, ObjectController.deleteObject)
 //NUMBER
@@ -68,6 +73,12 @@ managementRoute.put('/chat/:userId', authMiddleware, ChatSupportController.saveM
 managementRoute.put('/chat/viewMsg/:userId', authMiddleware, ChatSupportController.viewMessage);
 managementRoute.post('/chat/add', authMiddleware, ChatSupportController.newDialogue);
 managementRoute.post('/chat/delete/:userId', authMiddleware, ChatSupportController.deleteDialogue);
-
+//DOCUMENT CONFIRM
+managementRoute.get('/contract/document_confirm', authMiddleware, DocumentConfirmController.getDocumentConfirm);
+managementRoute.get('/contract/object/document_confirm/:hotelId', authMiddleware, DocumentConfirmController.getDocumentConfirmById);
+managementRoute.get('/contract/document_confirm/:userId', authMiddleware, DocumentConfirmController.getDocumentConfirmByUserId);
+managementRoute.post('/contract/document_confirm', authMiddleware, DocumentConfirmController.createDocumentConfirm);
+managementRoute.put('/contract/document_confirm/:hotelId', authMiddleware, DocumentConfirmController.updateDocumentConfirm);
+managementRoute.delete('/contract/document_confirm/:idDoc', authMiddleware, DocumentConfirmController.deleteDocumentConfirm);
 
 export default managementRoute;

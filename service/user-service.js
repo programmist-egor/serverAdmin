@@ -4,7 +4,6 @@ import User from "../models/user-model.js";
 import ApiError from "../exceptions/api-error.js";
 
 
-
 class UserService {
     async login(email, password, ipAddress) {
         const user = await User.findOne({where: {email}});
@@ -18,12 +17,12 @@ class UserService {
         }
 
         if (user.addressIP !== ipAddress) {
-            throw new ApiError.BadRequest("Неверный IP");
+            return {success: false, message: "Неверный IP"}
         }
-         const payload = {userId: user.userId, name: user.name, role: user.role}
+        const payload = {userId: user.userId, name: user.name, role: user.role}
         const tokens = TokenService.generateTokens(payload)
         await TokenService.saveToken(user.userId, tokens.refreshToken)
-        return {...tokens, user: payload}
+        return {success: true, message: "Авторизация пройдена", data: {...tokens, user: payload} };
     }
 
     async logout(refreshToken) {

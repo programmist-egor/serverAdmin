@@ -11,6 +11,10 @@ const InvoiceExtranet = sequelizeExtranet.define('Invoice-Extranet', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    nameObject: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     bank: {
         type: DataTypes.JSON,
         allowNull: false,

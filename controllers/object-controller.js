@@ -22,6 +22,30 @@ class ObjectController {
             next(error);
         }
     }
+    async getDataUserObject(req, res, next) {
+        try {
+            const hotelId = req.params.hotelId
+            if(!hotelId) {
+                return new ApiError.BadRequest("Некорректные данные")
+            }
+            const data = await ObjectService.getDataUserObject(hotelId)
+            return res.json(data)
+        } catch (error) {
+            next(error);
+        }
+    }
+    async getObjectByUserId(req, res, next) {
+        try {
+            const userId = req.params.userId
+            if(!userId) {
+                return new ApiError.BadRequest("Некорректные данные")
+            }
+            const data = await ObjectService.getObjectByUserId(userId)
+            return res.json(data)
+        } catch (error) {
+            next(error);
+        }
+    }
     async updateObject(req, res, next) {
         try {
             const hotelId = req.params.hotelId

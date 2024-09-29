@@ -1,6 +1,7 @@
 import ApiError from "../exceptions/api-error.js";
 import SettingAccount from "../models/setting-account-model.js";
 import Settlement from "../models/settlement-model.js";
+import {scheduleMail} from "../index.js";
 
 
 class SettingAccountService {
@@ -8,19 +9,59 @@ class SettingAccountService {
         return await Settlement.findAll()
     }
 
-    async getSettingAccount(id) {
-        const result = await SettingAccount.findOne({where: {idTable: id}});
+    async getSettingAccount() {
+        const result = await SettingAccount.findAll();
         if (!result) {
             throw new ApiError.BadRequest("Нет таких настроек!");
         }
         return result
     }
 
-    async updateSettingAccount(id, dataSettingAccount) {
-        const [updatedRows] = await SettingAccount.update(dataSettingAccount, {where: {idTable: id}});
-        if (updatedRows === 0) {
-            throw new ApiError.BadRequest("Нет таких настроек!");
+    async creatSettingAccount(dataSettingAccount) {
+        const result = await SettingAccount.create(dataSettingAccount);
+        if(result) {
+            return {success: true, message: "Бухгалтер успешно добавлен!"}
+        } else {
+            return {success: false, message: "Бухгалтер не добавлен!"}
         }
+    }
+
+    async deleteSettingAccount(id) {
+        const result = await SettingAccount.destroy({where:{id: id}});
+
+        if(result) {
+            return {success: true, message: "Бухгалтер успешно удален!"}
+        } else {
+            return {success: false, message: "Бухгалтер не удален!"}
+        }
+    }
+
+
+    async updateSettingAccount(id, dataSettingAccount) {
+        // Обновляем запись с заданным id
+        const updatedAccount = await SettingAccount.update(dataSettingAccount, {
+            where: { id: id },
+        });
+
+        await scheduleMail(dataSettingAccount)
+        return updatedAccount;
+    }
+
+    async updateChooseAccount(id) {
+        const result = await SettingAccount.findAll();
+
+        const updateData = result.map(item => {
+            if(item.id !== id) {
+                item.chooseAccount = false
+            }
+            return item
+        })
+
+        updateData.map( item =>  {
+            SettingAccount.update({chooseAccount: item.chooseAccount}, {where: {id: item.id}})
+        })
+
+        return result;
     }
 
     async updateAllCheckedSettlement(dataUpdate) {
@@ -54,6 +95,7 @@ class SettingAccountService {
                 updatedCount++;
             }
         }
+
         return updatedCount;
     }
 

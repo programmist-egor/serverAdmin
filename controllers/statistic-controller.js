@@ -11,6 +11,14 @@ class StatisticController {
         }
     }
 
+    async initStatistic(req, res, next) {
+        try {
+            const dataSettlement = await StatisticService.initStatistic()
+            res.json(dataSettlement);
+        } catch (error) {
+            next(error);
+        }
+    }
     async getSettlement(req, res, next) {
         try {
             const dataSettlement = await StatisticService.getSettlement()

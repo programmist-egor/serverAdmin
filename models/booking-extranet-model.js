@@ -12,6 +12,18 @@ const BookingExtranet = sequelizeExtranet.define('Booking-Extranet', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    userId:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    review:{
+        type: DataTypes.JSON,
+        allowNull: false,
+    },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     numberId: {
         type: DataTypes.STRING,
         allowNull: false,

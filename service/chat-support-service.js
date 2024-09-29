@@ -43,7 +43,7 @@ class ChatSupportService {
     async deleteDialogue(userId) {
         try {
             const msg = JSON.stringify([])
-            await ChatSupportModel.update(msg, {where: {userId: userId}});
+            await ChatSupportModel.update({messages: msg}, {where: {userId: userId}});
             return { success: true, message: "Dialogue  delete successfully" };
         } catch (error) {
             console.error("Error in createRatingObject:", error);

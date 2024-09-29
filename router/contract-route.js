@@ -9,6 +9,7 @@ contractRouter.put('/:userId', authMiddleware, ContractController.updateContract
 contractRouter.delete('/:userId', authMiddleware, ContractController.deleteContract);
 
 
+
 export default contractRouter;
 
 

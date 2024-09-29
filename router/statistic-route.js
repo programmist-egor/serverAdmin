@@ -7,6 +7,7 @@ const statisticRouter = new Router()
 //Statistic
 statisticRouter.get('/', authMiddleware, StatisticController.getStatistic);
 statisticRouter.get('/settlement', authMiddleware, StatisticController.getSettlement);
+statisticRouter.get('/initialization', authMiddleware, StatisticController.initStatistic);
 statisticRouter.get('/settlement/:uid', authMiddleware, StatisticController.getSettlementNumber);
 
 

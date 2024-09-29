@@ -12,6 +12,10 @@ const StatisticNumbers = sequelizeExtranet.define('Statistic-Numbers', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    idBooking: {
+        type: DataTypes.JSON,
+        allowNull: false,
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
